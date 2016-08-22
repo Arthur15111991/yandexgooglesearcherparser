@@ -27,7 +27,7 @@
 		}
 
 		public function _curlRequest()
-	    {
+		{
 			$curl = curl_init();
 			$search_string = 'http://yandex.ru/search?text=' . urlencode($this->search);
 			curl_setopt($curl, CURLOPT_URL, $search_string);
@@ -39,34 +39,34 @@
 			curl_close($curl);
 
 			if (!empty($errors)) {
-	            $this->errors[] = $errors;
-	        }
-	        return $this->responce;
-	    }
+		        $this->errors[] = $errors;
+		    }
+		    return $this->responce;
+		}
 
-	    public function _execute()
-	    {
-	    	$this->_curlRequest();
-	    	if (!empty($this->responce)) {
-	    		if ($this->_issetSearchResult()) {
-	    			$this->_parseResponce();
-	    		}
-	    		return array($this->content, implode(', ', $this->errors));
-	    	} else {
-	    		$this->errors[] = 'No results';
-	    		return array($this->content, implode(', ', $this->errors));
-	    	}
-	    }
+		public function _execute()
+		{
+			$this->_curlRequest();
+			if (!empty($this->responce)) {
+				if ($this->_issetSearchResult()) {
+					$this->_parseResponce();
+				}
+				return array($this->content, implode(', ', $this->errors));
+			} else {
+				$this->errors[] = 'No results';
+				return array($this->content, implode(', ', $this->errors));
+			}
+		}
 
-	    public function _issetSearchResult()
-	    {
-	    	$pattern = "(action=\"/checkcaptcha)";
-	    	if (preg_match($pattern, $this->responce)) {
-	    		$this->errors[] = 'No results';
-	    		return false;
-	    	}
-	    	return true;
-	    }
+		public function _issetSearchResult()
+		{
+			$pattern = "(action=\"/checkcaptcha)";
+			if (preg_match($pattern, $this->responce)) {
+				$this->errors[] = 'No results';
+				return false;
+			}
+			return true;
+		}
 
 
 	}

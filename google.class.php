@@ -31,7 +31,7 @@
 		}
 
 		public function _curlRequest()
-	    {
+		{
 			$curl = curl_init();
 			$search_string = $this->url . urlencode($this->search);
 			curl_setopt($curl, CURLOPT_URL, $search_string);
@@ -43,28 +43,28 @@
 			curl_close($curl);
 
 			if (!empty($error)) {
-	            return $error;
-	        }
-	        return $this->responce;
-	    }
+		        return $error;
+		    }
+		    return $this->responce;
+		}
 
-	    public function _execute()
-	    {
-	    	$this->_curlRequest();
-	    	if (!empty($this->responce)) {
-	    		$this->_parseResponce();
-	    	}
-	    	return array($this->content, implode(', ', $this->errors));
-	    }
+		public function _execute()
+		{
+			$this->_curlRequest();
+			if (!empty($this->responce)) {
+				$this->_parseResponce();
+			}
+			return array($this->content, implode(', ', $this->errors));
+		}
 
-	    private function _generateCorrectLinks($link)
-	    {
-	    	if (!preg_match("%http%", $link)) {
-	    		$link = "http://" . $link;
-	    	}
-	    	return $link;
+		private function _generateCorrectLinks($link)
+		{
+			if (!preg_match("%http%", $link)) {
+				$link = "http://" . $link;
+			}
+			return $link;
 
-	    }
+		}
 
 
 	}
